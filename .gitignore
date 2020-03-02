@@ -1,0 +1,7 @@
+*.*~
+*#*
+compile_commands.json
+.clang_complete
+build/**
+.log
+.clangd/**
