@@ -2,17 +2,18 @@
 #include <stdlib.h>
 #include <string>
 #include <3ds.h>
+#include "cli.h"
 
 int main(int argc, char* argv[])
 {
 	gfxInitDefault();
-	consoleInit(GFX_TOP, NULL);
+	Cli my_cli(GFX_TOP);
+	std::vector<std::string> options { "A thing", "Something", "Some other thing", "Quit" };
+	my_cli.set_options(options);
 
-	printf("Hello, world!!!\n");
-        /*  */
 	// Main loop
-	while (aptMainLoop())
-	{
+	while (aptMainLoop()){
+		my_cli.run();
 		gspWaitForVBlank();
 		gfxSwapBuffers();
 		hidScanInput();
