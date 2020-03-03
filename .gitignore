@@ -5,3 +5,6 @@ compile_commands.json
 build/**
 .log
 .clangd/**
+simpleCLI.3dsx
+simpleCLI.elf
+simpleCLI.smdh
