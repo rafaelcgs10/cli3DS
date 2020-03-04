@@ -9,3 +9,4 @@ simpleCLI.3dsx
 simpleCLI.elf
 simpleCLI.smdh
 .ccls
+.ccls-cache/
