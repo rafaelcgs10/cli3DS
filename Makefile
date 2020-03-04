@@ -99,6 +99,11 @@ clean:
 	@rm -fr $(BUILD) lib
 
 #---------------------------------------------------------------------------------
+install: $(OUTPUT)
+	install -m 644 $(OUTPUT) $(DEVKITPRO)/libctru/lib/
+	install -m 644 include/cli3DS.h $(DEVKITPRO)/libctru/include/
+
+#---------------------------------------------------------------------------------
 else
 
 DEPENDS	:=	$(OFILES:.o=.d)
