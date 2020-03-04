@@ -1,5 +1,5 @@
-#ifndef _cli_h_
-#define _cli_h_
+#ifndef _cli3DS_h_
+#define _cli3DS_h_
 #include <3ds.h>
 #include <string>
 #include <vector>
