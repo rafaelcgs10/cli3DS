@@ -63,4 +63,3 @@ void Cli::run(){
 	draw();
 	manage_input();
 }
-	
