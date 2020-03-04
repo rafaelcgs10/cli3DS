@@ -1,13 +1,12 @@
-#ifndef CLI_H
-#define CLI_H
-
+#ifndef _cli_h_
+#define _cli_h_
 #include <3ds.h>
 #include <string>
 #include <vector>
 
 #define CONSOLE_REVERSE		CONSOLE_ESC(7m)
 
-class Cli {
+class Cli{
 public:
 	Cli(gfxScreen_t _screen);
 	void set_options(std::vector<std::string> _options);

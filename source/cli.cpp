@@ -1,12 +1,10 @@
-#include "cli.h"
+#include "../include/cli.h"
+#include <string>
+#include <vector>
 
 Cli::Cli(gfxScreen_t _screen) : screen(_screen){
 	console = consoleInit(_screen, NULL);
 	current_option = 0;
-}
-
-void Cli::set_options(std::vector<std::string> _options){
-	options = _options;
 }
 
 void Cli::draw_string(const char* str, int pos_x, int pos_y, const char* color){
@@ -15,6 +13,10 @@ void Cli::draw_string(const char* str, int pos_x, int pos_y, const char* color){
     printf("%s%s%s", color, str, CONSOLE_RESET);
 
     gfxFlushBuffers();
+}
+
+void Cli::set_options(std::vector<std::string> _options){
+	options = _options;
 }
 
 void Cli::draw(){
