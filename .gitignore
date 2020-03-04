@@ -10,3 +10,4 @@ simpleCLI.elf
 simpleCLI.smdh
 .ccls
 .ccls-cache/
+lib/
