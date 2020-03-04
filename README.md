@@ -1,7 +1,9 @@
 CLI 3DS Library
 ===========
 
-The goal of this library is to provide a quick and simple way to implement a basic CLI (Command-line interface) to your Nintendo 3DS homebrew application.
+The goal of this library is to provide a quick and simple way to implement a basic CLI (Command-line interface) in your Nintendo 3DS homebrew application.
+
+If you don't want to lose time implementing a GUI at the early stages of your project, this is for you.
 
 ## Build and install
 
