@@ -8,17 +8,16 @@
 int main(int argc, char* argv[]){
     gfxInitDefault();
     Cli my_cli(GFX_TOP);
-    std::vector<std::string> options { "A thing", "Something", "Some other thing",
-                                       "One more thing", "More more more!", "Quit" };
+    std::vector<Option> options { Option("Option 1"), Option("Option 2"),
+                                  Option("Option 3"), Option("Option 4"),
+                                  Option("Option 5"), Option("Option 6") };
     my_cli.set_options(options);
 
-    // Main loop
     while (aptMainLoop()){
         gspWaitForVBlank();
         gfxSwapBuffers();
         hidScanInput();
 
-        // Your code goes here
         my_cli.run();
         u32 kDown = hidKeysDown();
         if (kDown & KEY_START)
