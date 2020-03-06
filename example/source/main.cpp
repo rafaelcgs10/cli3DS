@@ -8,7 +8,8 @@
 int main(int argc, char* argv[]){
 	gfxInitDefault();
 	Cli my_cli(GFX_TOP);
-	std::vector<std::string> options { "A thing", "Something", "Some other thing", "Quit" };
+	std::vector<std::string> options { "A thing", "Something", "Some other thing",
+									   "One more thing", "More more more!", "Quit" };
 	my_cli.set_options(options);
 
 	// Main loop
