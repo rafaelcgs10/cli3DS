@@ -9,38 +9,63 @@ using namespace std;
 
 #define CONSOLE_REVERSE CONSOLE_ESC(7m)
 
-class Cli;
+class View {
+  public:
+    virtual void set_screen(gfxScreen_t _screen) = 0;
+    virtual void draw() = 0;
+    virtual View *manage_input() = 0;
+};
 
 class Option {
     public:
         Option(string _text);
 	void set_call_back(void *_call_back);
 	void set_selectable();
-	void set_cli_entry(Cli *_cli_entry);
+	void set_view_entry(View *_view_entry);
 	string get_text();
+	View * click();
     private:
         string text;
         bool selectable;
-	void *call_back;
-	Cli *cli_entry;
+	bool selected;
+	void (*call_back)(void);
+        View *manage_input();
+	View *view_entry;
+};
+
+class Menu : public View {
+    public:
+	Menu();
+	~Menu();
+        void set_options(vector<Option> *_options);
+	void set_screen(gfxScreen_t _screen);
+        View *manage_input();
+
+    private:
+        PrintConsole *console;
+	vector<Option> *options;
+        vector<vector<Option>> *options_pages;
+        int max_options_page;
+        int current_option;
+        void draw_string(const char *str, int pos_x, int pos_y, const char *color);
+        void draw_options_page(int page_number, vector<Option> *options_page);
+        vector<vector<Option>> *paginate(vector<Option> *_options);
+        void draw();
+};
+
+class Splash : public View {
 };
 
 class Cli {
     public:
         Cli(gfxScreen_t _screen);
-        void set_options(vector<Option> _options);
+	void push_back_menu(Menu *menu);
         void run();
         
     private:
-        PrintConsole *console;
+    vector<Menu *> menus;
+	View *current_view;
         gfxScreen_t screen;
-	vector<Option> options;
-        vector<vector<Option>> options_pages;
-        int max_options_page;
-        int current_option;
-        void draw_string(const char *str, int pos_x, int pos_y, const char *color);
-        void draw_options_page(int page_number, vector<Option> options_page);
-        vector<vector<Option>> paginate(vector<Option> _options);
         void draw();
         void manage_input();
 };
