@@ -1,13 +1,16 @@
 #include "../include/cli3DS.h"
+#include "../include/draw_utils.h"
 
 Cli::Cli(gfxScreen_t _screen) : screen(_screen){
+    console = consoleInit(_screen, NULL);
     current_view = NULL;
 }
 
 void Cli::draw(){
     consoleClear();
-    current_view->draw();
-
+    draw_horizontal_bar_with_text_at_center(console, title,
+					    0, CONSOLE_WHITE); current_view->draw();
+    draw_text_line(console, text, 0, 1, CONSOLE_WHITE);
     gfxFlushBuffers();
 }
 
@@ -26,7 +29,7 @@ void Cli::run(){
 void Cli::push_back_menu(Menu *menu) {
     if(menus.size() == 0)
 	current_view = menu;
-    menu->set_screen(screen);
+    menu->set_console(console);
     menus.push_back(menu);
 }
 

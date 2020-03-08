@@ -6,14 +6,16 @@ using namespace std;
 Menu::Menu() {
     current_option = 0;
     max_options_page = 20;
+    height = 27;
+    offset_y = 2;
 }
 
 Menu::~Menu() {
     delete options_pages;
 }
 
-void Menu::set_screen(gfxScreen_t _screen) {
-    console = consoleInit(_screen, NULL);
+void Menu::set_console(PrintConsole *_console) {
+    console = _console;
 }
 
 void Menu::set_options(vector<Option> *_options) {
@@ -42,11 +44,10 @@ void Menu::draw_options_page(int page_number, vector<Option> *options_page,
 void Menu::draw() {
     int current_page = current_option / max_options_page;
 
-    draw_horizontal_bar(console, 0, CONSOLE_WHITE);
-    draw_options_page(current_page, &options_pages->at(current_page), 1);
+    draw_options_page(current_page, &options_pages->at(current_page), offset_y);
     draw_horizontal_bar_with_text_at_end(console, to_string(current_page + 1) +
-					 "/" + to_string(number_pages), 29,
-					 CONSOLE_WHITE);
+					 "/" + to_string(number_pages),
+					 offset_y + height, CONSOLE_WHITE);
 }
 
 vector<vector<Option>> *Menu::paginate(vector<Option> *_options) {
@@ -111,4 +112,12 @@ void Menu::clear_text() {
 
 void Menu::clear_title() {
     title.clear();
+}
+
+void Menu::set_offset_y(int _offset_y) {
+    offset_y = _offset_y;
+}
+
+void Menu::set_height(int _height) {
+    height = _height;
 }

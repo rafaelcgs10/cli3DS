@@ -10,7 +10,7 @@ using namespace std;
 
 class View {
   public:
-    virtual void set_screen(gfxScreen_t _screen) = 0;
+    virtual void set_console(PrintConsole *_console) = 0;
     virtual void draw() = 0;
     virtual View *manage_input() = 0;
 };
@@ -23,6 +23,7 @@ class Option {
 	void set_view_entry(View *_view_entry);
 	string get_text();
 	View * click();
+
     private:
         string text;
         bool selectable;
@@ -37,12 +38,14 @@ class Menu : public View {
 	Menu();
 	~Menu();
         void set_options(vector<Option> *_options);
-	void set_screen(gfxScreen_t _screen);
+	void set_console(PrintConsole *_console);
         View *manage_input();
 	void set_text(string _text);
 	void set_title(string _title);
 	void clear_text();
 	void clear_title();
+	void set_offset_y(int _offset_y);
+	void set_height(int _height);
 
     private:
         PrintConsole *console;
@@ -50,6 +53,8 @@ class Menu : public View {
         vector<vector<Option>> *options_pages;
 	string title;
 	string text;
+	int offset_y;
+	int height;
         int max_options_page;
         int number_pages;
         int current_option;
@@ -65,6 +70,7 @@ class Splash : public View {
 class Cli {
     public:
         Cli(gfxScreen_t _screen);
+        PrintConsole *console;
 	void push_back_menu(Menu *menu);
 	void set_text(string _text);
 	void set_title(string _title);
