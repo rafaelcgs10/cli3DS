@@ -16,10 +16,14 @@ int main(int argc, char* argv[]){
 
     entry.set_view_entry(&second_menu);
 
-    std::vector<Option> options1 { entry, Option("Option 2"),
-                                  Option("Option 3"), Option("Option 4"),
-                                  Option("Option 5"), Option("Option 6") };
-    std::vector<Option> options2{Option("Option 7"), Option("Option 8")};
+    std::vector<Option *> options1;
+    options1.push_back(&entry);
+    for (int i = 1; i <= 60; ++i) {
+	options1.push_back(new Option("Useless option " + to_string(i)));
+    }
+
+    std::vector<Option *> options2{ new Option("Useless option"),
+		                    new Option("Useless option") };
 
     first_menu.set_options(&options1);
     second_menu.set_options(&options2);
@@ -37,6 +41,14 @@ int main(int argc, char* argv[]){
             break; // break in order to return to hbmenu
     }
 
+    for(Option *option : options1) {
+	delete option;
+    }
+
+    for(Option *option : options2) {
+	delete option;
+    }
+    
     gfxExit();
     return 0;
 }
