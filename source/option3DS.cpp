@@ -1,5 +1,4 @@
 #include "../include/cli3DS.h"
-#include <string>
 
 Option::Option(string _text) : text(_text) {
     selectable = false;

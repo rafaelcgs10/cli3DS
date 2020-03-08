@@ -102,6 +102,7 @@ clean:
 install: $(OUTPUT)
 	install -m 644 $(OUTPUT) $(DEVKITPRO)/libctru/lib/
 	install -m 644 include/cli3DS.h $(DEVKITPRO)/libctru/include/
+	install -m 644 include/definitions.h $(DEVKITPRO)/libctru/include/
 
 #---------------------------------------------------------------------------------
 else

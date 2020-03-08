@@ -4,10 +4,9 @@
 #include <3ds.h>
 #include <string>
 #include <vector>
+#include "definitions.h"
 
 using namespace std;
-
-#define CONSOLE_REVERSE CONSOLE_ESC(7m)
 
 class View {
   public:
@@ -40,15 +39,22 @@ class Menu : public View {
         void set_options(vector<Option> *_options);
 	void set_screen(gfxScreen_t _screen);
         View *manage_input();
+	void set_text(string _text);
+	void set_title(string _title);
+	void clear_text();
+	void clear_title();
 
     private:
         PrintConsole *console;
 	vector<Option> *options;
         vector<vector<Option>> *options_pages;
+	string title;
+	string text;
         int max_options_page;
+        int number_pages;
         int current_option;
-        void draw_string(const char *str, int pos_x, int pos_y, const char *color);
-        void draw_options_page(int page_number, vector<Option> *options_page);
+	void draw_options_page(int page_number, vector<Option> *options_page,
+			       int pos_y);
         vector<vector<Option>> *paginate(vector<Option> *_options);
         void draw();
 };
@@ -60,11 +66,17 @@ class Cli {
     public:
         Cli(gfxScreen_t _screen);
 	void push_back_menu(Menu *menu);
+	void set_text(string _text);
+	void set_title(string _title);
+	void clear_text();
+	void clear_title();
         void run();
         
     private:
     vector<Menu *> menus;
 	View *current_view;
+	string title;
+	string text;
         gfxScreen_t screen;
         void draw();
         void manage_input();
