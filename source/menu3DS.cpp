@@ -5,8 +5,8 @@ using namespace std;
 
 Menu::Menu() {
     current_option = 0;
-    max_options_page = 20;
     height = 27;
+    max_options_page = height;
     offset_y = 2;
 }
 
@@ -18,24 +18,24 @@ void Menu::set_console(PrintConsole *_console) {
     console = _console;
 }
 
-void Menu::set_options(vector<Option> *_options) {
+void Menu::set_options(vector<Option *> *_options) {
     options = _options;
     options_pages = paginate(options);
     number_pages = options_pages->size();
 }
 
-void Menu::draw_options_page(int page_number, vector<Option> *options_page,
+void Menu::draw_options_page(int page_number, vector<Option *> *options_page,
 			     int pos_y) {
     const char *current_color;
     int current_print_option = 0;
 
-    for (Option option : *options_page) {
+    for (Option *option : *options_page) {
         if(current_print_option == current_option % max_options_page)
             current_color = CONSOLE_REVERSE;
         else
             current_color = CONSOLE_WHITE;
 
-        draw_text_line(console, option.get_text(), 0, current_print_option + pos_y,
+        draw_text_line(console, option->get_text(), 0, current_print_option + pos_y,
 		       current_color);
         current_print_option++;
     }
@@ -50,21 +50,21 @@ void Menu::draw() {
 					 offset_y + height, CONSOLE_WHITE);
 }
 
-vector<vector<Option>> *Menu::paginate(vector<Option> *_options) {
-    vector<vector<Option>> *_pages = new vector<vector<Option>>;
+vector<vector<Option *>> *Menu::paginate(vector<Option *> *_options) {
+    vector<vector<Option *>> *_pages = new vector<vector<Option *>>;
     int count_options_in_page = 0;
-    vector<Option> *page = new vector<Option>;
-    string last_option = _options->back().get_text();
+    vector<Option *> *page = new vector<Option *>;
+    Option *last_option = _options->back();
 
-    for (Option option : *_options) {
+    for (Option *option : *_options) {
         page->push_back(option);
         count_options_in_page++;
         if(count_options_in_page >= max_options_page) {
             _pages->push_back(*page);
             count_options_in_page = 0;
-            page = new vector<Option>;
+            page = new vector<Option *>;
         }
-        else if(option.get_text() == last_option) {
+        else if(option == last_option) {
             _pages->push_back(*page);
         }
     }
@@ -93,7 +93,7 @@ View *Menu::manage_input() {
     } else if (key & KEY_LEFT) {
         current_option = 0;
     } else if (key & KEY_A) {
-	return options->at(current_option).click();
+	return options->at(current_option)->click();
     }
     return NULL;
 }

@@ -37,7 +37,7 @@ class Menu : public View {
     public:
 	Menu();
 	~Menu();
-        void set_options(vector<Option> *_options);
+        void set_options(vector<Option *> *_options);
 	void set_console(PrintConsole *_console);
         View *manage_input();
 	void set_text(string _text);
@@ -49,8 +49,8 @@ class Menu : public View {
 
     private:
         PrintConsole *console;
-	vector<Option> *options;
-        vector<vector<Option>> *options_pages;
+	vector<Option *> *options;
+        vector<vector<Option *>> *options_pages;
 	string title;
 	string text;
 	int offset_y;
@@ -58,9 +58,9 @@ class Menu : public View {
         int max_options_page;
         int number_pages;
         int current_option;
-	void draw_options_page(int page_number, vector<Option> *options_page,
+	void draw_options_page(int page_number, vector<Option *> *options_page,
 			       int pos_y);
-        vector<vector<Option>> *paginate(vector<Option> *_options);
+        vector<vector<Option *>> *paginate(vector<Option *> *_options);
         void draw();
 };
 
