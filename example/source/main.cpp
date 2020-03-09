@@ -9,7 +9,6 @@ int main(int argc, char* argv[]){
     gfxInitDefault();
     Cli cli(GFX_TOP);
     cli.set_title("CLI TITLE");
-    cli.set_text("CLI TEXT CLI TEXT CLI TEXT CLI TEXT CLI TEXT");
     Menu first_menu;
     Menu second_menu;
     Option entry("Menu entry");

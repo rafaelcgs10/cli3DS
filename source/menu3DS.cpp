@@ -71,6 +71,10 @@ vector<vector<Option *>> *Menu::paginate(vector<Option *> *_options) {
     return _pages;
 }
 
+bool Menu::is_executable() {
+    return false;
+}
+
 View *Menu::manage_input() {
     u32 key = hidKeysDown();
     int number_options = options->size();

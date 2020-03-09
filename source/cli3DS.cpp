@@ -8,9 +8,8 @@ Cli::Cli(gfxScreen_t _screen) : screen(_screen){
 
 void Cli::draw(){
     consoleClear();
-    draw_horizontal_bar_with_text_at_center(console, title,
-					    0, CONSOLE_WHITE); current_view->draw();
-    draw_text_line(console, text, 0, 1, CONSOLE_WHITE);
+    draw_horizontal_bar_with_text_at_center(console, title, 0, CONSOLE_WHITE);
+    current_view->draw();
     gfxFlushBuffers();
 }
 
@@ -34,16 +33,8 @@ void Cli::push_back_menu(Menu *menu) {
 }
 
 
-void Cli::set_text(string _text) {
-    text = _text;
-}
-
 void Cli::set_title(string _title) {
     title = _title;
-}
-
-void Cli::clear_text() {
-    text.clear();
 }
 
 void Cli::clear_title() {
