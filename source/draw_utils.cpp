@@ -1,7 +1,5 @@
 #include "../include/draw_utils.h"
 
-using namespace std;
-
 void draw_horizontal_bar(PrintConsole *console, int pos_y, const char *color) {
     console->cursorX = 0;
     console->cursorY = pos_y;
@@ -10,7 +8,7 @@ void draw_horizontal_bar(PrintConsole *console, int pos_y, const char *color) {
     printf(CONSOLE_RESET);
 }
 
-void draw_horizontal_bar_with_text_at_end(PrintConsole *console, string text,
+void draw_horizontal_bar_with_text_at_end(PrintConsole *console, std::string text,
 					  int pos_y, const char *color) {
     console->cursorX = 0;
     console->cursorY = pos_y;
@@ -22,7 +20,7 @@ void draw_horizontal_bar_with_text_at_end(PrintConsole *console, string text,
     printf(CONSOLE_RESET);
 }
 
-void draw_horizontal_bar_with_text_at_begin(PrintConsole *console, string text,
+void draw_horizontal_bar_with_text_at_begin(PrintConsole *console, std::string text,
 					    int pos_y, const char *color) {
     console->cursorX = 0;
     console->cursorY = pos_y;
@@ -34,7 +32,7 @@ void draw_horizontal_bar_with_text_at_begin(PrintConsole *console, string text,
     printf(CONSOLE_RESET);
 }
 
-void draw_horizontal_bar_with_text_at_center(PrintConsole *console, string text,
+void draw_horizontal_bar_with_text_at_center(PrintConsole *console, std::string text,
 					     int pos_y, const char *color) {
     console->cursorX = 0;
     console->cursorY = pos_y;
@@ -56,7 +54,7 @@ void draw_horizontal_line(PrintConsole *console, int pos_y, const char *color) {
     printf(CONSOLE_RESET);
 }
 
-void draw_horizontal_line_with_text_at_begin(PrintConsole *console, string text,
+void draw_horizontal_line_with_text_at_begin(PrintConsole *console, std::string text,
 					     int pos_y, const char *color) {
     console->cursorX = 0;
     console->cursorY = pos_y;
@@ -68,7 +66,7 @@ void draw_horizontal_line_with_text_at_begin(PrintConsole *console, string text,
     printf(CONSOLE_RESET);
 }
 
-void draw_horizontal_line_with_text_at_end(PrintConsole *console, string text,
+void draw_horizontal_line_with_text_at_end(PrintConsole *console, std::string text,
 					   int pos_y, const char *color) {
     console->cursorX = 0;
     console->cursorY = pos_y;
@@ -80,7 +78,7 @@ void draw_horizontal_line_with_text_at_end(PrintConsole *console, string text,
     printf(CONSOLE_RESET);
 }
 
-void draw_text_line(PrintConsole *console, string text, int pos_x, int pos_y,
+void draw_text_line(PrintConsole *console, std::string text, int pos_x, int pos_y,
 		    const char* color) {
     console->cursorX = pos_x;
     console->cursorY = pos_y;

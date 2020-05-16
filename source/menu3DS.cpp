@@ -1,8 +1,6 @@
 #include "../include/cli3DS.h"
 #include "../include/draw_utils.h"
 
-using namespace std;
-
 Menu::Menu() {
     current_option = 0;
     height = 27;
@@ -18,13 +16,13 @@ void Menu::set_console(PrintConsole *_console) {
     console = _console;
 }
 
-void Menu::set_options(vector<Option *> *_options) {
+void Menu::set_options(std::vector<Option *> *_options) {
     options = _options;
     options_pages = paginate(options);
     number_pages = options_pages->size();
 }
 
-void Menu::draw_options_page(int page_number, vector<Option *> *options_page,
+void Menu::draw_options_page(int page_number, std::vector<Option *> *options_page,
 			     int pos_y) {
     const char *current_color;
     int current_print_option = 0;
@@ -45,15 +43,15 @@ void Menu::draw() {
     int current_page = current_option / max_options_page;
 
     draw_options_page(current_page, &options_pages->at(current_page), offset_y);
-    draw_horizontal_bar_with_text_at_end(console, to_string(current_page + 1) +
-					 "/" + to_string(number_pages),
+    draw_horizontal_bar_with_text_at_end(console, std::to_string(current_page + 1) +
+					 "/" + std::to_string(number_pages),
 					 offset_y + height, CONSOLE_WHITE);
 }
 
-vector<vector<Option *>> *Menu::paginate(vector<Option *> *_options) {
-    vector<vector<Option *>> *_pages = new vector<vector<Option *>>;
+std::vector<std::vector<Option *>> *Menu::paginate(std::vector<Option *> *_options) {
+    std::vector<std::vector<Option *>> *_pages = new std::vector<std::vector<Option *>>;
     int count_options_in_page = 0;
-    vector<Option *> *page = new vector<Option *>;
+    std::vector<Option *> *page = new std::vector<Option *>;
     Option *last_option = _options->back();
 
     for (Option *option : *_options) {
@@ -62,7 +60,7 @@ vector<vector<Option *>> *Menu::paginate(vector<Option *> *_options) {
         if(count_options_in_page >= max_options_page) {
             _pages->push_back(*page);
             count_options_in_page = 0;
-            page = new vector<Option *>;
+            page = new std::vector<Option *>;
         }
         else if(option == last_option) {
             _pages->push_back(*page);
@@ -102,11 +100,11 @@ View *Menu::manage_input() {
     return NULL;
 }
 
-void Menu::set_text(string _text) {
+void Menu::set_text(std::string _text) {
     text = _text;
 }
 
-void Menu::set_title(string _title) {
+void Menu::set_title(std::string _title) {
     title = _title;
 }
 

@@ -33,7 +33,7 @@ void Cli::push_back_menu(Menu *menu) {
 }
 
 
-void Cli::set_title(string _title) {
+void Cli::set_title(std::string _title) {
     title = _title;
 }
 

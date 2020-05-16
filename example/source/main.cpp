@@ -18,7 +18,7 @@ int main(int argc, char* argv[]){
     std::vector<Option *> options1;
     options1.push_back(&entry);
     for (int i = 1; i <= 60; ++i) {
-	options1.push_back(new Option("Useless option " + to_string(i)));
+	options1.push_back(new Option("Useless option " + std::to_string(i)));
     }
 
     std::vector<Option *> options2{ new Option("Useless option"),

@@ -4,9 +4,8 @@
 #include <3ds.h>
 #include <string>
 #include <vector>
+#include <functional>
 #include "definitions.h"
-
-using namespace std;
 
 class View {
     public:
@@ -16,25 +15,25 @@ class View {
 	virtual bool is_executable() = 0;
 
     private:
-	string title;
-	string text;
+	std::string title;
+	std::string text;
 };
 
 class Option {
     public:
-        Option(string _text);
+        Option(std::string _text);
 	void set_selectable();
 	void set_view_entry(View *_view_entry);
-	string get_text();
+	std::string get_text();
 	View *click();
 
     private:
-        string text;
+        std::string text;
         bool selectable;
 	bool selected;
 	View *view_entry;
-	void set_text(string _text);
-	void set_title(string _title);
+	void set_text(std::string _text);
+	void set_title(std::string _title);
 	void clear_text();
 	void clear_title();
 	void set_offset_y(int _offset_y);
@@ -45,12 +44,12 @@ class Menu : public View {
     public:
 	Menu();
 	~Menu();
-        void set_options(vector<Option *> *_options);
+        void set_options(std::vector<Option *> *_options);
 	void set_console(PrintConsole *_console);
         View *manage_input();
         void draw();
-	void set_text(string _text);
-	void set_title(string _title);
+	void set_text(std::string _text);
+	void set_title(std::string _title);
 	void clear_text();
 	void clear_title();
 	void set_offset_y(int _offset_y);
@@ -59,26 +58,26 @@ class Menu : public View {
 
     private:
         PrintConsole *console;
-	vector<Option *> *options;
-        vector<vector<Option *>> *options_pages;
-	string title;
-	string text;
+	std::vector<Option *> *options;
+        std::vector<std::vector<Option *>> *options_pages;
+	std::string title;
+	std::string text;
 	int offset_y;
 	int height;
         int max_options_page;
         int number_pages;
         int current_option;
-	void draw_options_page(int page_number, vector<Option *> *options_page,
+	void draw_options_page(int page_number, std::vector<Option *> *options_page,
 			       int pos_y);
-        vector<vector<Option *>> *paginate(vector<Option *> *_options);
+        std::vector<std::vector<Option *>> *paginate(std::vector<Option *> *_options);
 };
 
 class ExecutionSplash : public View {
     public:
 	ExecutionSplash();
 	void set_execution_function(void (*_execution)(void *arg));
-	void set_text(string _text);
-	void set_title(string _title);
+	void set_text(std::string _text);
+	void set_title(std::string _title);
 	void clear_text();
 	void clear_title();
 	void set_offset_y(int _offset_y);
@@ -93,8 +92,8 @@ class ExecutionSplash : public View {
 
     private:
 	int *execution_progress;
-	string title;
-	string text;
+	std::string title;
+	std::string text;
 	int offset_y;
 	int height;
 	void (*execution)(void *arg);
@@ -106,15 +105,15 @@ class Cli {
         Cli(gfxScreen_t _screen);
         PrintConsole *console;
 	void push_back_menu(Menu *menu);
-	void set_text(string _text);
-	void set_title(string _title);
+	void set_text(std::string _text);
+	void set_title(std::string _title);
 	void clear_title();
         void run();
         
     private:
-    vector<Menu *> menus;
+    std::vector<Menu *> menus;
 	View *current_view;
-	string title;
+	std::string title;
         gfxScreen_t screen;
         void manage_input();
         void draw();

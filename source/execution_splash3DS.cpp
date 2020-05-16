@@ -36,11 +36,11 @@ bool ExecutionSplash::is_executable() {
     return true;
 }
 
-void ExecutionSplash::set_text(string _text) {
+void ExecutionSplash::set_text(std::string _text) {
     text = _text;
 }
 
-void ExecutionSplash::set_title(string _title) {
+void ExecutionSplash::set_title(std::string _title) {
     title = _title;
 }
 

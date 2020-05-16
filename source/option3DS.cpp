@@ -1,11 +1,11 @@
 #include "../include/cli3DS.h"
 
-Option::Option(string _text) : text(_text) {
+Option::Option(std::string _text) : text(_text) {
     selectable = false;
     view_entry = NULL;
 }
 
-string Option::get_text() {
+std::string Option::get_text() {
     return text;
 }
 
