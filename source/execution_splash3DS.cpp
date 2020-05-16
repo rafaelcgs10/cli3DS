@@ -4,7 +4,7 @@
 ExecutionSplash::ExecutionSplash() {
 }
 
-void ExecutionSplash::set_execution(void (*_execution)(void *arg)) {
+void ExecutionSplash::set_execution_function(void (*_execution)(void *arg)) {
     execution = _execution;
 }
 
@@ -32,7 +32,7 @@ void ExecutionSplash::draw() {
     printf("progress: %d", *execution_progress);
 }
 
-bool Menu::is_executable() {
+bool ExecutionSplash::is_executable() {
     return true;
 }
 

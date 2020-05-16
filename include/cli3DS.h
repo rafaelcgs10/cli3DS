@@ -76,7 +76,7 @@ class Menu : public View {
 class ExecutionSplash : public View {
     public:
 	ExecutionSplash();
-	void set_execution(void (*_execution)(void *arg));
+	void set_execution_function(void (*_execution)(void *arg));
 	void set_text(string _text);
 	void set_title(string _title);
 	void clear_text();
