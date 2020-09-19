@@ -16,7 +16,7 @@ void Cli::draw(){
 void Cli::manage_input() {
     View *view = current_view->manage_input();
     if(view != NULL) {
-	current_view = view;
+        current_view = view;
     }
 }
 
@@ -27,7 +27,7 @@ void Cli::run(){
 
 void Cli::push_back_menu(Menu *menu) {
     if(menus.size() == 0)
-	current_view = menu;
+        current_view = menu;
     menu->set_console(console);
     menus.push_back(menu);
 }

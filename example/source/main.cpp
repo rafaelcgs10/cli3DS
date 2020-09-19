@@ -18,11 +18,11 @@ int main(int argc, char* argv[]){
     std::vector<Option *> options1;
     options1.push_back(&entry);
     for (int i = 1; i <= 60; ++i) {
-	options1.push_back(new Option("Useless option " + std::to_string(i)));
+        options1.push_back(new Option("Useless option " + std::to_string(i)));
     }
 
     std::vector<Option *> options2{ new Option("Useless option"),
-		                    new Option("Useless option") };
+    new Option("Useless option") };
 
     first_menu.set_options(&options1);
     second_menu.set_options(&options2);
@@ -41,13 +41,13 @@ int main(int argc, char* argv[]){
     }
 
     for(Option *option : options1) {
-	delete option;
+        delete option;
     }
 
     for(Option *option : options2) {
-	delete option;
+        delete option;
     }
-    
+
     gfxExit();
     return 0;
 }

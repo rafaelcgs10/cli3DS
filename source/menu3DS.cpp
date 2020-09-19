@@ -23,7 +23,7 @@ void Menu::set_options(std::vector<Option *> *_options) {
 }
 
 void Menu::draw_options_page(int page_number, std::vector<Option *> *options_page,
-			     int pos_y) {
+                             int pos_y) {
     const char *current_color;
     int current_print_option = 0;
 
@@ -34,7 +34,7 @@ void Menu::draw_options_page(int page_number, std::vector<Option *> *options_pag
             current_color = CONSOLE_WHITE;
 
         draw_text_line(console, option->get_text(), 0, current_print_option + pos_y,
-		       current_color);
+                       current_color);
         current_print_option++;
     }
 }
@@ -44,8 +44,8 @@ void Menu::draw() {
 
     draw_options_page(current_page, &options_pages->at(current_page), offset_y);
     draw_horizontal_bar_with_text_at_end(console, std::to_string(current_page + 1) +
-					 "/" + std::to_string(number_pages),
-					 offset_y + height, CONSOLE_WHITE);
+                                         "/" + std::to_string(number_pages),
+                                         offset_y + height, CONSOLE_WHITE);
 }
 
 std::vector<std::vector<Option *>> *Menu::paginate(std::vector<Option *> *_options) {
@@ -77,7 +77,7 @@ View *Menu::manage_input() {
     u32 key = hidKeysDown();
     int number_options = options->size();
     int last_option = number_options - 1;
-    
+
     if (key & KEY_UP) {
         if (current_option <= 0) {
             current_option = last_option;
@@ -95,7 +95,7 @@ View *Menu::manage_input() {
     } else if (key & KEY_LEFT) {
         current_option = 0;
     } else if (key & KEY_A) {
-	return options->at(current_option)->click();
+        return options->at(current_option)->click();
     }
     return NULL;
 }

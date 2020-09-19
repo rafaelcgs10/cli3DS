@@ -16,13 +16,12 @@ void Option::set_view_entry(View *_view_entry) {
 
 View *Option::click() {
     if(selectable) {
-	selected = !selected;
+        selected = !selected;
     } else if(view_entry != NULL) {
-	if(view_entry->is_executable()) {
-	    ((ExecutionSplash*) view_entry)->start_execution();
-	}
-	return view_entry;
+        if(view_entry->is_executable()) {
+            ((ExecutionSplash*) view_entry)->start_execution();
+        }
+        return view_entry;
     }
     return NULL;
 }
-
