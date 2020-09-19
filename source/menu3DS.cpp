@@ -6,6 +6,7 @@ Menu::Menu() {
     height = 27;
     max_options_page = height;
     offset_y = 2;
+    previous_view = NULL;
 }
 
 Menu::~Menu() {
@@ -18,6 +19,9 @@ void Menu::set_console(PrintConsole *_console) {
 
 void Menu::set_options(std::vector<Option *> *_options) {
     options = _options;
+    for(Option *option : *options) {
+        option->set_current_view(this);
+    }
     options_pages = paginate(options);
     number_pages = options_pages->size();
 }
@@ -73,6 +77,10 @@ bool Menu::is_executable() {
     return false;
 }
 
+void Menu::set_previous_view(View *view) {
+    previous_view = view;
+}
+
 View *Menu::manage_input() {
     u32 key = hidKeysDown();
     int number_options = options->size();
@@ -90,6 +98,8 @@ View *Menu::manage_input() {
         } else {
             current_option++;
         }
+    } else if (key & KEY_B) {
+        return previous_view;
     } else if (key & KEY_RIGHT) {
         current_option = last_option;
     } else if (key & KEY_LEFT) {

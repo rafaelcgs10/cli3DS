@@ -24,11 +24,13 @@ class Option {
     public:
         Option(std::string _text);
         void set_selectable();
+        void set_current_view(View *_view);
         void set_view_entry(View *_view_entry);
         std::string get_text();
         View *click();
 
     private:
+        View *current_view;
         std::string text;
         bool selectable;
         bool selected;
@@ -55,9 +57,11 @@ class Menu : public View {
         void clear_title();
         void set_offset_y(int _offset_y);
         void set_height(int _height);
+        void set_previous_view(View *view);
         bool is_executable();
 
     private:
+        View *previous_view;
         PrintConsole *console;
         std::vector<Option *> *options;
         std::vector<std::vector<Option *>> *options_pages;
@@ -83,6 +87,7 @@ class ExecutionSplash : public View {
         void set_title(std::string _title);
         void clear_text();
         void clear_title();
+        void set_previous_view(View *view);
         void set_offset_y(int _offset_y);
         void set_height(int _height);
         void set_execution_progress(int *execution_progress);
@@ -92,8 +97,10 @@ class ExecutionSplash : public View {
         void start_execution();
         View *manage_input();
         bool is_executable();
+        void free_execution_thread();
 
     private:
+        View *previous_view;
         PrintConsole *console;
         int *execution_progress;
         std::string title;
@@ -102,6 +109,7 @@ class ExecutionSplash : public View {
         int height;
         void (*execution)(void *arg);
         void *arg;
+	Thread execution_thread;
 };
 
 class Cli {
@@ -116,6 +124,7 @@ class Cli {
         void run();
 
     private:
+        Menu *last_menu;
         std::vector<Menu *> menus;
         std::vector<ExecutionSplash *> splashes;
         View *current_view;

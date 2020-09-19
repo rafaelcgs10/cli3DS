@@ -1,5 +1,7 @@
 #include "../include/cli3DS.h"
 #include "../include/draw_utils.h"
+#include <3ds/console.h>
+#include <3ds/thread.h>
 
 ExecutionSplash::ExecutionSplash() {
 }
@@ -15,6 +17,11 @@ void ExecutionSplash::set_arg(void *_arg) {
     arg = _arg;
 }
 
+void ExecutionSplash::free_execution_thread() {
+    threadJoin(execution_thread, U64_MAX);
+    threadFree(execution_thread);
+}
+
 void ExecutionSplash::set_console(PrintConsole *_console) {
     console = _console;
 }
@@ -24,23 +31,40 @@ void ExecutionSplash::set_execution_progress(int *_execution_progress) {
 }
 
 void ExecutionSplash::start_execution() {
-    execution(arg);
+	s32 prio = 0;
+	svcGetThreadPriority(&prio, CUR_THREAD_HANDLE);
+    execution_thread = threadCreate(execution, arg, STACKSIZE, prio-1, -2, false);
 }
 
 int ExecutionSplash::read_execution_progress() {
     return *execution_progress;
 }
 
+void ExecutionSplash::set_previous_view(View *view) {
+    previous_view = view;
+}
+
 View *ExecutionSplash::manage_input() {
+    u32 key = hidKeysDown();
+    if(*execution_progress >= 100) {
+        if (key & KEY_B) {
+            return previous_view;
+        }
+    }
     return NULL;
 }
 
 void ExecutionSplash::draw() {
-    draw_text_line(console, "oi", 20, 20, CONSOLE_CYAN);
+    draw_text_line(console, "Progress: " + std::to_string(*execution_progress) + "%", 16, 14, CONSOLE_WHITE);
+    if(*execution_progress >= 100) {
+        free_execution_thread();
+        draw_text_line(console, "Operation finished", 16, 14, CONSOLE_WHITE);
+        draw_text_line(console, "Press B to return", 16, 20, CONSOLE_WHITE);
+    }
 }
 
 bool ExecutionSplash::is_executable() {
-    return false;
+    return true;
 }
 
 void ExecutionSplash::set_text(std::string _text) {
