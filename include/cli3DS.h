@@ -15,6 +15,7 @@ class View {
         virtual bool is_executable() = 0;
 
     private:
+        PrintConsole *console;
         std::string title;
         std::string text;
 };
@@ -75,6 +76,8 @@ class Menu : public View {
 class ExecutionSplash : public View {
     public:
         ExecutionSplash();
+        ~ExecutionSplash();
+        void set_console(PrintConsole *_console);
         void set_execution_function(void (*_execution)(void *arg));
         void set_text(std::string _text);
         void set_title(std::string _title);
@@ -91,6 +94,7 @@ class ExecutionSplash : public View {
         bool is_executable();
 
     private:
+        PrintConsole *console;
         int *execution_progress;
         std::string title;
         std::string text;
@@ -105,6 +109,7 @@ class Cli {
         Cli(gfxScreen_t _screen);
         PrintConsole *console;
         void push_back_menu(Menu *menu);
+        void push_back_splash(ExecutionSplash *splash);
         void set_text(std::string _text);
         void set_title(std::string _title);
         void clear_title();
@@ -112,6 +117,7 @@ class Cli {
 
     private:
         std::vector<Menu *> menus;
+        std::vector<ExecutionSplash *> splashes;
         View *current_view;
         std::string title;
         gfxScreen_t screen;

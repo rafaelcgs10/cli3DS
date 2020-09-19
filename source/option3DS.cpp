@@ -19,7 +19,7 @@ View *Option::click() {
         selected = !selected;
     } else if(view_entry != NULL) {
         if(view_entry->is_executable()) {
-            ((ExecutionSplash*) view_entry)->start_execution();
+            // ((ExecutionSplash*) view_entry)->start_execution();
         }
         return view_entry;
     }

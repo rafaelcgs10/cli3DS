@@ -4,12 +4,19 @@
 ExecutionSplash::ExecutionSplash() {
 }
 
+ExecutionSplash::~ExecutionSplash() {
+}
+
 void ExecutionSplash::set_execution_function(void (*_execution)(void *arg)) {
     execution = _execution;
 }
 
 void ExecutionSplash::set_arg(void *_arg) {
     arg = _arg;
+}
+
+void ExecutionSplash::set_console(PrintConsole *_console) {
+    console = _console;
 }
 
 void ExecutionSplash::set_execution_progress(int *_execution_progress) {
@@ -29,11 +36,11 @@ View *ExecutionSplash::manage_input() {
 }
 
 void ExecutionSplash::draw() {
-    printf("progress: %d", *execution_progress);
+    draw_text_line(console, "oi", 20, 20, CONSOLE_CYAN);
 }
 
 bool ExecutionSplash::is_executable() {
-    return true;
+    return false;
 }
 
 void ExecutionSplash::set_text(std::string _text) {

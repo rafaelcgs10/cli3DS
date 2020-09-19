@@ -32,6 +32,10 @@ void Cli::push_back_menu(Menu *menu) {
     menus.push_back(menu);
 }
 
+void Cli::push_back_splash(ExecutionSplash *splash) {
+    splash->set_console(console);
+    splashes.push_back(splash);
+}
 
 void Cli::set_title(std::string _title) {
     title = _title;

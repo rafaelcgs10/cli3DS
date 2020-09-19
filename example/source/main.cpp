@@ -11,6 +11,7 @@ int main(int argc, char* argv[]){
     cli.set_title("CLI TITLE");
     Menu first_menu;
     Menu second_menu;
+    ExecutionSplash loading_screen;
     Option entry("Menu entry");
 
     entry.set_view_entry(&second_menu);
@@ -21,13 +22,17 @@ int main(int argc, char* argv[]){
         options1.push_back(new Option("Useless option " + std::to_string(i)));
     }
 
-    std::vector<Option *> options2{ new Option("Useless option"),
-    new Option("Useless option") };
+    loading_screen.set_text("Loading");
+
+    std::vector<Option *> options2{ new Option("Useless option"), new Option("loading screen") };
+    options2[0]->set_view_entry(&loading_screen);
+    options2[1]->set_view_entry(&loading_screen);
 
     first_menu.set_options(&options1);
     second_menu.set_options(&options2);
     cli.push_back_menu(&first_menu);
     cli.push_back_menu(&second_menu);
+    cli.push_back_splash(&loading_screen);
 
     while (aptMainLoop()){
         gspWaitForVBlank();
