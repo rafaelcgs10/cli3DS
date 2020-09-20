@@ -26,6 +26,14 @@ void ExecutionSplash::set_console(PrintConsole *_console) {
     console = _console;
 }
 
+void ExecutionSplash::set_execution_finished(bool *_execution_finished) {
+    execution_finished = _execution_finished;
+}
+
+void ExecutionSplash::set_execution_log(std::string *_execution_log) {
+    execution_log = _execution_log;
+}
+
 void ExecutionSplash::set_execution_progress(int *_execution_progress) {
     execution_progress = _execution_progress;
 }
@@ -46,7 +54,7 @@ void ExecutionSplash::set_previous_view(View *view) {
 
 View *ExecutionSplash::manage_input() {
     u32 key = hidKeysDown();
-    if(*execution_progress >= 100) {
+    if(*execution_finished) {
         if (key & KEY_B) {
             return previous_view;
         }
@@ -55,11 +63,13 @@ View *ExecutionSplash::manage_input() {
 }
 
 void ExecutionSplash::draw() {
-    draw_text_line(console, "Progress: " + std::to_string(*execution_progress) + "%", 16, 14, CONSOLE_WHITE);
-    if(*execution_progress >= 100) {
+    if(*execution_finished) {
         free_execution_thread();
         draw_text_line(console, "Operation finished", 16, 14, CONSOLE_WHITE);
         draw_text_line(console, "Press B to return", 16, 20, CONSOLE_WHITE);
+    } else {
+        draw_text_line(console, "Progress: " + std::to_string(*execution_progress) + "%", 16, 14, CONSOLE_WHITE);
+        draw_text_line(console, *execution_log, 0, 20, CONSOLE_WHITE);
     }
 }
 

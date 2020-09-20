@@ -1,5 +1,6 @@
 #include "../include/cli3DS.h"
 #include "../include/draw_utils.h"
+#include <vector>
 
 Menu::Menu() {
     current_option = 0;
@@ -26,8 +27,7 @@ void Menu::set_options(std::vector<Option *> *_options) {
     number_pages = options_pages->size();
 }
 
-void Menu::draw_options_page(int page_number, std::vector<Option *> *options_page,
-                             int pos_y) {
+void Menu::draw_options_page(int page_number, std::vector<Option *> *options_page, int pos_y) {
     const char *current_color;
     int current_print_option = 0;
 
@@ -37,9 +37,28 @@ void Menu::draw_options_page(int page_number, std::vector<Option *> *options_pag
         else
             current_color = CONSOLE_WHITE;
 
-        draw_text_line(console, option->get_text(), 0, current_print_option + pos_y,
-                       current_color);
+        draw_option(option, current_print_option + pos_y, current_color);
         current_print_option++;
+    }
+}
+
+std::vector<Option *> Menu::get_selected_options() {
+    std::vector<Option *> seleted_options;
+    for(Option *option : *options) {
+        if(option->get_selected()) {
+            seleted_options.push_back(option);
+        }
+    }
+    return seleted_options;
+}
+
+void Menu::draw_option(Option *option, int pos_y, const char *color) {
+    draw_text_line(console, option->get_text(), 0, pos_y, color);
+    if(option->get_selectable()) {
+        if(option->get_selected())
+            draw_text_line(console, "(X)", 47, pos_y, color);
+        else
+            draw_text_line(console, "( )", 47, pos_y, color);
     }
 }
 
@@ -105,7 +124,12 @@ View *Menu::manage_input() {
     } else if (key & KEY_LEFT) {
         current_option = 0;
     } else if (key & KEY_A) {
-        return options->at(current_option)->click();
+        if(options->at(current_option)->get_selectable()) {
+            options->at(current_option)->toggle_selected();
+            return NULL;
+        } else {
+            return options->at(current_option)->click();
+        }
     }
     return NULL;
 }

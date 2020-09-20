@@ -2,11 +2,32 @@
 
 Option::Option(std::string _text) : text(_text) {
     selectable = false;
+    selected = false;
     view_entry = NULL;
 }
 
 std::string Option::get_text() {
     return text;
+}
+
+void Option::set_selectable() {
+    view_entry = NULL;
+    selectable = true;
+}
+
+bool Option::get_selectable() {
+    return selectable;
+}
+
+void Option::toggle_selected() {
+    if(selected)
+        selected = false;
+    else
+        selected = true;
+}
+
+bool Option::get_selected() {
+    return selected;
 }
 
 void Option::set_current_view(View *_view) {

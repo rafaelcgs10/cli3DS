@@ -6,17 +6,26 @@
 #include <3ds.h>
 #include <cli3DS.h>
 
-typedef struct Count {
+typedef struct SomeData {
    int count;
    int progress;
-} Count;
+   std::string log;
+   Menu *menu;
+   bool execution_finished;
+} SomeData;
 
-void count_down(void *_count) {
-    Count *count = (Count*) _count;
-    for (int i = 0; i <= count->count; ++i) {
-        count->progress = (int) 100 * (i / (float) count->count);
-        sleep(1);
+void compute_thing(void *_data) {
+    SomeData *data = (SomeData*) _data;
+    std::vector<Option *> options = data->menu->get_selected_options();
+
+    for(Option *option : options) {
+        data->log = "Processing " + option->get_text();
+        for (int i = 0; i <= data->count; ++i) {
+            data->progress = (int) 100 * (i / (float) data->count);
+            sleep(1);
+        }
     }
+    data->execution_finished = true;
 }
 
 int main(int argc, char* argv[]){
@@ -33,16 +42,22 @@ int main(int argc, char* argv[]){
     std::vector<Option *> options1;
     options1.push_back(&entry);
     for (int i = 1; i <= 60; ++i) {
-        options1.push_back(new Option("Useless option " + std::to_string(i)));
+        Option *option_aux = new Option("Useless selectable option " + std::to_string(i));
+        option_aux->set_selectable();
+        options1.push_back(option_aux);
     }
 
     loading_screen.set_title("Loading");
-    loading_screen.set_execution_function(&count_down);
-    Count count;
-    count.count = 7;
-    count.progress = 0;
-    loading_screen.set_arg(&count);
-    loading_screen.set_execution_progress(&count.progress);
+    SomeData data;
+    data.count = 7;
+    data.execution_finished = false;
+    data.progress = 0;
+    data.menu = &first_menu;
+    loading_screen.set_arg(&data);
+    loading_screen.set_execution_progress(&data.progress);
+    loading_screen.set_execution_log(&data.log);
+    loading_screen.set_execution_finished(&data.execution_finished);
+    loading_screen.set_execution_function(&compute_thing);
 
     std::vector<Option *> options2{ new Option("Useless option"), new Option("Loading screen") };
     options2[1]->set_view_entry(&loading_screen);

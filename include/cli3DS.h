@@ -24,6 +24,9 @@ class Option {
     public:
         Option(std::string _text);
         void set_selectable();
+        bool get_selectable();
+        void toggle_selected();
+        bool get_selected();
         void set_current_view(View *_view);
         void set_view_entry(View *_view_entry);
         std::string get_text();
@@ -59,6 +62,7 @@ class Menu : public View {
         void set_height(int _height);
         void set_previous_view(View *view);
         bool is_executable();
+        std::vector<Option *> get_selected_options();
 
     private:
         View *previous_view;
@@ -72,6 +76,7 @@ class Menu : public View {
         int max_options_page;
         int number_pages;
         int current_option;
+        void draw_option(Option *option, int pos_y, const char *color);
         void draw_options_page(int page_number, std::vector<Option *> *options_page,
                                int pos_y);
         std::vector<std::vector<Option *>> *paginate(std::vector<Option *> *_options);
@@ -90,6 +95,8 @@ class ExecutionSplash : public View {
         void set_previous_view(View *view);
         void set_offset_y(int _offset_y);
         void set_height(int _height);
+        void set_execution_finished(bool *_execution_finished);
+        void set_execution_log(std::string *_execution_log);
         void set_execution_progress(int *execution_progress);
         void set_arg(void *_arg);
         int read_execution_progress();
@@ -102,6 +109,8 @@ class ExecutionSplash : public View {
     private:
         View *previous_view;
         PrintConsole *console;
+        bool *execution_finished;
+        std::string *execution_log;
         int *execution_progress;
         std::string title;
         std::string text;
