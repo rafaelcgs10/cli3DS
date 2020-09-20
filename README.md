@@ -20,9 +20,8 @@ Look the example in the `example` folder to see how to use this library. Also, c
 - [x] Abstract options as a class.
 - [x] Pagination for dealing with long lists of options.
 - [x] Multiple menus navegation.
-- [ ] Options can be selectable.
+- [x] Options can be selectable.
+- [x] Splash screen for processing selected options.
 - [ ] Manage multiple screens.
-- [ ] Other kinds of screens that are not menus, such as information screens or splash screens.
-- [ ] Improve general menu/view presentation.
 
 Feel free to help me out with those tasks!
