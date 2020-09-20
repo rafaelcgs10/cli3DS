@@ -83,5 +83,4 @@ void draw_text_line(PrintConsole *console, std::string text, int pos_x, int pos_
     console->cursorX = pos_x;
     console->cursorY = pos_y;
     printf("%s%s%s", color, text.c_str(), CONSOLE_RESET);
-
 }

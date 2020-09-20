@@ -49,7 +49,7 @@ int main(int argc, char* argv[]){
 
     loading_screen.set_title("Loading");
     SomeData data;
-    data.count = 7;
+    data.count = 3;
     data.execution_finished = false;
     data.progress = 0;
     data.menu = &first_menu;
@@ -70,11 +70,11 @@ int main(int argc, char* argv[]){
     cli.push_back_splash(&loading_screen);
 
     while (aptMainLoop()){
-        gspWaitForVBlank();
-        gfxSwapBuffers();
-        hidScanInput();
-
+        gfxFlushBuffers();
         cli.run();
+        gfxSwapBuffers();
+        gspWaitForVBlank();
+        hidScanInput();
         u32 kDown = hidKeysDown();
         if (kDown & KEY_START)
             break; // break in order to return to hbmenu

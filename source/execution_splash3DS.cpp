@@ -39,6 +39,7 @@ void ExecutionSplash::set_execution_progress(int *_execution_progress) {
 }
 
 void ExecutionSplash::start_execution() {
+    *execution_finished = false;
 	s32 prio = 0;
 	svcGetThreadPriority(&prio, CUR_THREAD_HANDLE);
     execution_thread = threadCreate(execution, arg, STACKSIZE, prio-1, -2, false);
@@ -65,9 +66,13 @@ View *ExecutionSplash::manage_input() {
 void ExecutionSplash::draw() {
     if(*execution_finished) {
         free_execution_thread();
+        draw_horizontal_bar(console, 14, CONSOLE_BLACK);
+        draw_horizontal_bar(console, 20, CONSOLE_BLACK);
         draw_text_line(console, "Operation finished", 16, 14, CONSOLE_WHITE);
         draw_text_line(console, "Press B to return", 16, 20, CONSOLE_WHITE);
     } else {
+        draw_horizontal_bar(console, 14, CONSOLE_BLACK);
+        draw_horizontal_bar(console, 20, CONSOLE_BLACK);
         draw_text_line(console, "Progress: " + std::to_string(*execution_progress) + "%", 16, 14, CONSOLE_WHITE);
         draw_text_line(console, *execution_log, 0, 20, CONSOLE_WHITE);
     }

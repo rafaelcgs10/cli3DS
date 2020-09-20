@@ -139,7 +139,7 @@ class Cli {
         View *current_view;
         std::string title;
         gfxScreen_t screen;
-        void manage_input();
+        void manage_events();
         void draw();
 };
 
