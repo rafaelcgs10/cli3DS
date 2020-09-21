@@ -110,8 +110,11 @@ class ExecutionSplash : public View {
         View *previous_view;
         PrintConsole *console;
         bool *execution_finished;
+        bool drew_finished;
         std::string *execution_log;
+        std::string last_execution_log;
         int *execution_progress;
+        int last_execution_progress;
         std::string title;
         std::string text;
         int offset_y;
